@@ -2,10 +2,8 @@ import streamlit as st
 import pandas as pd
 import spacy
 
-# --- CONFIGURAÇÃO DA PÁGINA (Sempre o primeiro comando) ---
 st.set_page_config(
-    page_title="Scanner LGPD - PMEs", 
-    page_icon="🛡️", 
+    page_title="Scanner", 
     layout="centered"
 )
 
@@ -23,19 +21,16 @@ except Exception as e:
     st.error(f"Erro ao carregar o modelo de NLP: {e}")
     st.stop()
 
-# --- IMPORTAÇÕES DO PROJETO ---
 from motor_busca import analisar_dataframe
 from gerador_pdf import gerar_pdf_bytes
 
 # --- INTERFACE VISUAL ---
-# (O restante do seu código permanece igual daqui para baixo...)
-# --- INTERFACE VISUAL ---
-st.title("🛡️ Scanner de Conformidade LGPD")
-st.subheader("Inventário Automatizado para Pequenas e Médias Empresas")
+st.title("Scanner de Conformidade")
+st.subheader("Inventário Automatizado de Dados")
 
 st.markdown("""
 Faça o upload de arquivos estruturados (**CSV** ou **XLSX**) para identificar automaticamente a presença 
-de dados pessoais (CPF, E-mail, Telefone, Nome Completo) e gerar o relatório de riscos sem salvar nenhuma informação no servidor.
+de dados pessoais (CPF, E-mail, Telefone, Nome Completo) e gerar o relatório de riscos.
 """)
 
 # Componente de Upload de Arquivos
@@ -52,35 +47,35 @@ if arquivo is not None:
         st.success(f"Arquivo '{arquivo.name}' carregado com sucesso!")
         
         # 2. Execução do Motor de Busca
-        st.write("### 🔍 Analisando dados...")
+        st.write("### Analisando dados...")
         resultados = analisar_dataframe(df)
         
         # 3. Exibição do Diagnóstico e Nível de Risco na Tela
         if resultados:
-            st.warning("⚠️ Foram encontrados dados pessoais no arquivo!")
+            st.warning(" Foram encontrados dados pessoais no arquivo!")
             dados_tabela = [{"Coluna no Arquivo": col, "Tipo de Dado Detectado": tipo} for col, tipo in resultados.items()]
             st.table(dados_tabela)
             
             qtd_colunas_expostas = len(resultados)
             if qtd_colunas_expostas >= 3:
-                st.error("🚨 Nível de Risco Geral: ALTO (Múltiplos identificadores expostos)")
+                st.error("Nível de Risco Geral: ALTO (Múltiplos identificadores expostos)")
             else:
-                st.warning("⚠️ Nível de Risco Geral: MÉDIO (Dados pessoais identificados)")
+                st.warning(" Nível de Risco Geral: MÉDIO (Dados pessoais identificados)")
         else:
             # Caso não encontre nada, exibe sucesso na tela
-            st.success("✅ Nenhum dado pessoal evidente (CPF, Email, Telefone, Nome Completo) foi detectado nas amostras.")
+            st.success(" Nenhum dado pessoal evidente (CPF, Email, Telefone, Nome Completo) foi detectado nas amostras.")
             
         # 4. Geração e Download do Relatório em PDF
         st.write("---")
-        st.write("### 📄 Relatório de Adequação")
-        st.markdown("Clique no botão abaixo para descarregar o relatório oficial de riscos da LGPD em formato PDF.")
+        st.write("### Relatório de Adequação")
+        st.markdown("Clique no botão abaixo para descarregar o relatório de riscos em formato PDF.")
         
         pdf_data = gerar_pdf_bytes(resultados, len(df))
         
         st.download_button(
             label="📥 Descarregar Relatório PDF",
             data=bytes(pdf_data),
-            file_name=f"Relatorio_Adequacao_LGPD_{arquivo.name}.pdf",
+            file_name=f"Relatorio_Adequacao_{arquivo.name}.pdf",
             mime="application/pdf"
         )
             

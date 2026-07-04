@@ -1,61 +1,94 @@
 import re
 import pandas as pd
-import spacy
-import streamlit as st
 
-import pt_core_news_sm
-nlp = pt_core_news_sm.load()
+RISCO_MAPEAMENTO = {
+    "CPF": "Médio",
+    "E-mail": "Médio",
+    "Telefone": "Médio",
+    "Nome": "Baixo",
+    "Endereço": "Alto"
+}
+
+def verificar_heuristica_coluna(nome_coluna):
+    """
+    Inspeciona o metadado (nome da coluna) para identificar 
+    dados que não possuem padrões matemáticos rigorosos.
+    """
+    # Normaliza o texto removendo acentos e deixando em minúsculo
+    nome_normalizado = str(nome_coluna).lower().strip()
+    
+    palavras_chave_nome = ['nome', 'razao social', 'cliente', 'titular', 'favorecido', 'contato']
+    palavras_chave_endereco = ['endereco', 'rua', 'logradouro', 'cep', 'bairro', 'cidade', 'estado', 'uf']
+    
+    # Busca por correspondência de palavras-chave
+    if any(palavra in nome_normalizado for palavra in palavras_chave_nome):
+        return "Nome"
+    
+    if any(palavra in nome_normalizado for palavra in palavras_chave_endereco):
+        return "Endereço"
+        
+    return None
 
 def extrair_padroes_coluna(series):
+    """
+    Analisa os valores de uma coluna por amostragem aleatória 
+    para identificar padrões de Regex (CPF, Email ou Telefone).
+    """
     valores = series.dropna().astype(str).str.strip()
     
     if valores.empty:
         return None
 
-    # Regex para os outros padrões
+    # Amostragem Aleatória: Coleta até 200 linhas para garantir robustez
+    tamanho_maximo = min(200, len(valores))
+    amostra = valores.sample(n=tamanho_maximo, random_state=42)
+    
     regex_cpf = r'^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$'
     regex_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     regex_telefone = r'^\(?[1-9]{2}\)? ?(?:[2-8]|9[1-9])\d{3}-?\d{4}$'
 
-    amostra = valores.head(50)
-    total_itens = len(amostra)
-    
     cpfs_encontrados = sum(1 for v in amostra if re.match(regex_cpf, v))
     emails_encontrados = sum(1 for v in amostra if re.match(regex_email, v))
     telefones_encontrados = sum(1 for v in amostra if re.match(regex_telefone, v))
-    
-    # Validação com NLP (spaCy) para Nomes Próprios
-    nomes_encontrados = 0
-    for v in amostra:
-        # Ignora textos muito longos ou muito curtos para poupar processamento
-        if 5 < len(v) < 60: 
-            doc = nlp(v)
-            # Verifica se o modelo identificou uma Entidade de Pessoa (PER)
-            if any(ent.label_ == "PER" for ent in doc.ents):
-                nomes_encontrados += 1
 
-    # Lógica de classificação (70% de acerto)
-    if cpfs_encontrados / total_itens > 0.7:
+    # Mantém o limiar de 70% de correspondência sobre a amostra aleatória
+    if cpfs_encontrados / tamanho_maximo > 0.7:
         return "CPF"
-    elif emails_encontrados / total_itens > 0.7:
+    elif emails_encontrados / tamanho_maximo > 0.7:
         return "E-mail"
-    elif telefones_encontrados / total_itens > 0.7:
+    elif telefones_encontrados / tamanho_maximo > 0.7:
         return "Telefone"
-    elif nomes_encontrados / total_itens > 0.7:
-        return "Nome Completo"
         
     return None
 
 def analisar_dataframe(df):
     """
-    Varre todo o DataFrame coluna por coluna e retorna um inventário
-    de onde foram encontrados dados pessoais.
+    Varre todo o DataFrame cruzando Regex e Heurística.
+    Retorna o inventário detalhado com Nível de Risco.
     """
-    inventario = {}
+    inventario = []
     
     for coluna in df.columns:
-        tipo_dado = extrair_padroes_coluna(df[coluna])
+        tipo_dado = None
+        
+        # 1. Tentativa Primária: Identificação por conteúdo exato (Regex)
+        tipo_regex = extrair_padroes_coluna(df[coluna])
+        
+        if tipo_regex:
+            tipo_dado = tipo_regex
+        else:
+            # 2. Tentativa Secundária: Identificação pelo nome da coluna (Heurística)
+            tipo_heuristica = verificar_heuristica_coluna(coluna)
+            if tipo_heuristica:
+                tipo_dado = tipo_heuristica
+        
+        # 3. Mapeamento de Risco e Construção do Inventário
         if tipo_dado:
-            inventario[coluna] = tipo_dado
+            nivel_risco = RISCO_MAPEAMENTO.get(tipo_dado, "Indefinido")
+            inventario.append({
+                "Coluna": coluna,
+                "Tipo de Dado Pessoal": tipo_dado,
+                "Nível de Risco": nivel_risco
+            })
             
-    return inventario
+    return pd.DataFrame(inventario) if inventario else pd.DataFrame()

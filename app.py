@@ -17,7 +17,10 @@ if arquivo is not None:
 
         st.success(f"Arquivo '{arquivo.name}' carregado com sucesso!")
         st.info(f"O arquivo possui {df.shape[0]} linhas e {df.shape[1]} colunas.")
-        
+
+        if st.button("Analisar e Gerar Relatório PDF"):
+            st.warning("O motor de busca e o gerador de PDF serão integrados nas próximas etapas.")
+
         st.markdown("#### Visualização Rápida")
         df_metadados = pd.DataFrame({
             "Nome da Coluna": df.columns,
@@ -27,8 +30,5 @@ if arquivo is not None:
 
         st.markdown("---")
         
-        if st.button("Analisar e Gerar Relatório PDF"):
-            st.warning("O motor de busca e o gerador de PDF serão integrados nas próximas etapas.")
-
     except Exception as e:
         st.error(f"Erro ao processar o arquivo: {e}")

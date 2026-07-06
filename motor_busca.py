@@ -7,12 +7,13 @@ nlp = spacy.load("pt_core_news_sm")
 
 def analisar_texto_livre(series):
     """
-    Usa spaCy para encontrar entidades em texto não estruturado.
-    Analisa uma amostra para otimizar performance.
+    Usa spaCy para encontrar entidades com lógica de desempate
+    para evitar confusão entre LOC (Local) e PER (Pessoa).
     """
+    # Amostragem para performance
     amostra = series.dropna().astype(str).sample(n=min(50, len(series)), random_state=42)
 
-    entidades_encontradas = {"PER": 0, "LOC": 0} # PER = Pessoas, LOC = Localizações
+    entidades_encontradas = {"PER": 0, "LOC": 0}
 
     for texto in amostra:
         doc = nlp(texto)
@@ -20,9 +21,14 @@ def analisar_texto_livre(series):
             if ent.label_ == "PER": entidades_encontradas["PER"] += 1
             if ent.label_ == "LOC": entidades_encontradas["LOC"] += 1
 
-    # Se uma proporção significativa da amostra contiver entidades
-    if entidades_encontradas["PER"] > 5: return "Nome"
-    if entidades_encontradas["LOC"] > 5: return "Endereço"
+    # Lógica de desempate e segurança
+    # Classifica como Nome apenas se houver mais Pessoas do que Locais e um volume mínimo
+    if entidades_encontradas["PER"] > entidades_encontradas["LOC"] and entidades_encontradas["PER"] > 5:
+        return "Nome"
+
+    # Classifica como Endereço se houver mais Locais que Pessoas e um volume mínimo
+    if entidades_encontradas["LOC"] > entidades_encontradas["PER"] and entidades_encontradas["LOC"] > 5:
+        return "Endereço"
 
     return None
 

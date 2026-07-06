@@ -1,5 +1,30 @@
 import re
 import pandas as pd
+import spacy
+
+# Carrega o modelo de processamento de linguagem
+nlp = spacy.load("pt_core_news_sm")
+
+def analisar_texto_livre(series):
+    """
+    Usa spaCy para encontrar entidades em texto não estruturado.
+    Analisa uma amostra para otimizar performance.
+    """
+    amostra = series.dropna().astype(str).sample(n=min(50, len(series)), random_state=42)
+
+    entidades_encontradas = {"PER": 0, "LOC": 0} # PER = Pessoas, LOC = Localizações
+
+    for texto in amostra:
+        doc = nlp(texto)
+        for ent in doc.ents:
+            if ent.label_ == "PER": entidades_encontradas["PER"] += 1
+            if ent.label_ == "LOC": entidades_encontradas["LOC"] += 1
+
+    # Se uma proporção significativa da amostra contiver entidades
+    if entidades_encontradas["PER"] > 5: return "Nome"
+    if entidades_encontradas["LOC"] > 5: return "Endereço"
+
+    return None
 
 RISCO_MAPEAMENTO = {
     "CPF": "Médio",
@@ -62,33 +87,27 @@ def extrair_padroes_coluna(series):
     return None
 
 def analisar_dataframe(df):
-    """
-    Varre todo o DataFrame cruzando Regex e Heurística.
-    Retorna o inventário detalhado com Nível de Risco.
-    """
     inventario = []
-    
+
     for coluna in df.columns:
         tipo_dado = None
-        
-        # 1. Tentativa Primária: Identificação por conteúdo exato (Regex)
-        tipo_regex = extrair_padroes_coluna(df[coluna])
-        
-        if tipo_regex:
-            tipo_dado = tipo_regex
-        else:
-            # 2. Tentativa Secundária: Identificação pelo nome da coluna (Heurística)
-            tipo_heuristica = verificar_heuristica_coluna(coluna)
-            if tipo_heuristica:
-                tipo_dado = tipo_heuristica
-        
-        # 3. Mapeamento de Risco e Construção do Inventário
+
+        # 1. Regex (Dados Estruturados)
+        tipo_dado = extrair_padroes_coluna(df[coluna])
+
+        # 2. Heurística (Títulos das colunas)
+        if not tipo_dado:
+            tipo_dado = verificar_heuristica_coluna(coluna)
+
+        # 3. NLP/spaCy (Dados Não Estruturados - O Pulo do Gato)
+        if not tipo_dado:
+            tipo_dado = analisar_texto_livre(df[coluna])
+
         if tipo_dado:
-            nivel_risco = RISCO_MAPEAMENTO.get(tipo_dado, "Indefinido")
             inventario.append({
                 "Coluna": coluna,
                 "Tipo de Dado Pessoal": tipo_dado,
-                "Nível de Risco": nivel_risco
+                "Nível de Risco": RISCO_MAPEAMENTO.get(tipo_dado, "Indefinido")
             })
-            
-    return pd.DataFrame(inventario) if inventario else pd.DataFrame()
+
+    return pd.DataFrame(inventario)

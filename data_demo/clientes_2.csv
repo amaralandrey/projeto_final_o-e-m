@@ -1,0 +1,61 @@
+﻿id_cliente,nome_completo,cpf,data_nascimento,email,telefone,endereco,bairro,cidade,estado,cep,data_cadastro,categoria_cliente
+2000,Raul Nascimento,169.428.530-89,1991-05-20,ribeirorafael@example.com,+55 38 3164-7525,"Viaduto da Mata, 3",São João Batista,Castro,PB,48350-305,2025-04-26,ME
+2001,Heitor Nunes,537.896.140-84,1964-10-26,liz96@example.com,+55 88 2871-0122,"Praça de Peixoto, 7",Mineirão,Moura de da Cunha,PI,18451462,2025-06-03,Pessoa Física
+2002,Dra. Julia Montenegro,281.659.703-21,1994-09-28,peixotoayla@example.com,+55 15 1543-0391,Residencial de Azevedo,Vila Santa Rosa,Cardoso,RO,82489-638,2026-01-10,ME
+2003,Srta. Luana Guerra,578.019.643-57,1984-08-21,pedro-lucasabreu@example.org,+55 32 3105-1834,"Favela Valentina Cardoso, 497",Vila Sesc,Jesus de Correia,AM,65667010,2025-04-27,Pessoa Física
+2004,Sr. Josué Correia,387.196.240-69,2001-03-27,macedoisis@example.org,+55 27 8013-2677,"Avenida Lucas Garcia, 7",Heliopolis,da Paz de Lima,RR,23430-980,2026-01-04,ME
+2005,Benicio Pacheco,782.046.159-49,1989-09-05,isiscampos@example.net,+55 96 9909-1699,"Jardim Nicolas Rios, 53",Morro Dos Macacos,Rios,RS,75107-991,2024-08-29,MEI
+2006,Thiago da Luz,251.798.634-73,1985-12-29,riosana-clara@example.net,+55 46 2411-8244,"Loteamento Costela, 88",Granja De Freitas,Borges,RS,40052-427,2025-08-14,ME
+2007,Alexia Camargo,120.684.937-13,1952-12-10,bruno53@example.net,+55 96 1586-9232,"Pátio Alves, 75",Vista Alegre,da Mata,CE,60733754,2026-02-26,ME
+2008,Henry Gabriel Alves,365.208.491-89,1989-12-05,benjamin14@example.org,11 0196-5569,"Parque Oliveira, 14",Vila Nova,Abreu do Galho,SE,56159514,2025-07-12,ME
+2009,Maria Luísa Duarte,642.135.978-73,1974-01-25,da-rosaallana@example.org,71 9957-7738,"Esplanada de Ribeiro, 5",São Benedito,Borges de Goiás,RO,33200-379,2026-03-20,Pessoa Física
+2010,Rafael Leão,936.871.420-78,2002-04-16,vasconceloslais@example.org,+55 74 8708-3172,"Viaduto Sofia Novais, 957",Novo Glória,Castro de Souza,PR,43487-347,2024-09-01,Pessoa Física
+2011,Isaac da Mata,591.768.320-40,1991-06-28,leaojoana@example.com,84 6036-6909,"Aeroporto Clarice da Rosa, 96",Vila Primeiro De Maio,Mendonça,ES,67065-627,2026-05-10,MEI
+2012,Yasmin Alves,601.537.982-03,1965-08-09,otavio75@example.com,51 4641-7080,"Via Azevedo, 1",Goiania,Almeida,RN,32719374,2026-01-18,Pessoa Física
+2013,Danilo Vasconcelos,241.809.375-14,1954-12-03,gustavosampaio@example.com,+55 51 9058-6518,"Aeroporto Laura Mendonça, 7",Marieta 1ª Seção,Santos de Cassiano,PA,84987769,2025-01-19,ME
+2014,Caio da Mota,739.468.201-31,1999-11-15,mariahcunha@example.com,+55 99 5494-8083,Pátio Mendonça,Satelite,Sales,PR,70143-634,2025-11-04,ME
+2015,Dr. Yuri Moura,569.273.814-73,1963-11-20,ana-vitoriacampos@example.net,0900 233 7498,"Colônia Mathias da Rocha, 35",Jardim Vitoria,Santos,PI,40084271,2026-04-05,Pessoa Física
+2016,Larissa Melo,795.102.384-14,1973-10-03,oliveiracaue@example.org,+55 65 9413-1869,"Fazenda de Vasconcelos, 867",Jardim Montanhês,das Neves Verde,RN,91334123,2024-11-11,ME
+2017,Emanuel Abreu,678.201.934-50,1991-04-16,rbarbosa@example.org,11 9361-8324,"Campo Araújo, 54",Ouro Minas,Martins,RR,64887-719,2024-08-05,MEI
+2018,Luna Pereira,401.759.826-94,1983-12-09,maria-isismoreira@example.net,75 4296-7175,"Largo Gustavo Henrique Castro, 86",Jardim Do Vale,Teixeira da Prata,AL,15451-680,2025-10-30,MEI
+2019,Nicole Jesus,035.487.961-84,1982-05-16,luna71@example.org,+55 94 2480-8613,"Quadra Campos, 57",Santa Terezinha,Leão do Amparo,PR,78263982,2026-03-30,Pessoa Física
+2020,Oliver Fernandes,840.256.371-62,1981-10-02,brenda88@example.com,81 5339-6360,"Recanto de Santos, 36",Santa Inês,Cardoso,PE,17187-026,2026-04-04,Pessoa Física
+2021,Breno Melo,456.802.319-05,2001-02-11,pintodavi-miguel@example.org,17 3161-1724,Largo Vieira,Barão Homem De Melo 3ª Seção,Fogaça da Praia,PA,38692221,2025-09-25,MEI
+2022,Isabella Monteiro,923.758.610-86,2002-08-27,rda-paz@example.net,+55 67 1759-4647,"Estrada Hadassa Mendes, 4",Mineirão,Oliveira da Mata,RR,06409-097,2026-03-07,MEI
+2023,Ian Pereira,538.421.097-41,1968-06-07,landrade@example.com,+55 55 1456-2328,"Rodovia de da Mata, 84",Vitoria,Souza Alegre,SE,71236851,2026-02-04,Pessoa Física
+2024,João Nascimento,175.862.349-73,1956-10-19,maria-juliaalves@example.net,33 9317-4612,Lagoa Monteiro,Canadá,da Costa,PI,67586926,2025-10-28,Pessoa Física
+2025,Maria Luísa da Mota,053.761.294-70,1982-02-04,davi64@example.org,+55 53 7139-0053,"Favela de Azevedo, 439",Zilah Sposito,Farias,SP,90422842,2024-09-25,Pessoa Física
+2026,Davi Lucca Albuquerque,539.012.687-40,1981-01-11,melomanuela@example.com,97 9178-3908,"Via Bento Araújo, 76",Vila Jardim São José,Mendonça,RR,11592-124,2025-10-06,ME
+2027,Lunna Garcia,984.375.602-92,1999-12-24,lorenamachado@example.org,65 5766-1565,"Núcleo Leandro Rodrigues, 21",Palmeiras,Borges,PA,52809885,2025-11-08,Pessoa Física
+2028,Maria Rios,604.725.893-00,1959-06-28,gcamara@example.com,47 1493-6899,"Sítio de Alves, 340",Independência,Fernandes da Praia,AC,29612018,2024-12-11,Pessoa Física
+2029,Mirella Fernandes,254.897.036-10,1959-08-24,rochaenrico@example.com,75 6797-6438,Praça Henry da Paz,Vila Inestan,Moura de Rios,MA,36900343,2026-01-18,ME
+2030,João Vitor Duarte,107.539.468-66,1979-07-14,diego60@example.com,+55 15 7159-6966,"Passarela Almeida, 82",Palmeiras,Borges das Pedras,AM,69681645,2024-12-15,MEI
+2031,Breno Moraes,183.625.904-24,1959-01-04,luiz-felipepereira@example.org,+55 37 2779-9799,"Largo de Cassiano, 81",Paquetá,Vieira Paulista,RJ,58147700,2025-04-02,Pessoa Física
+2032,Breno Ramos,186.345.097-10,1969-03-01,jmontenegro@example.org,79 1518-2037,"Rua de Pimenta, 65",Silveira,Gomes das Pedras,SP,90515-186,2025-01-30,ME
+2033,Dra. Clarice Farias,125.873.960-77,1968-06-21,yramos@example.com,+55 54 8168-5054,"Loteamento Vargas, 43",Cinquentenário,Barbosa,MA,88805929,2025-04-08,Pessoa Física
+2034,Fernando Sales,927.038.154-41,1994-02-26,ida-conceicao@example.org,27 7359-7746,"Pátio de Castro, 39",Santa Tereza,Aragão do Amparo,MS,81412478,2024-10-22,Pessoa Física
+2035,Ayla Câmara,750.396.281-02,2008-03-14,pietro05@example.org,35 2204-7277,"Chácara Almeida, 33",São Salvador,Camargo da Mata,ES,10369-711,2026-03-10,ME
+2036,Zoe Almeida,832.790.641-04,1961-05-19,mouraeloah@example.org,0300 888 8067,Parque de Freitas,Granja Werneck,Fogaça,SE,53195205,2025-08-10,MEI
+2037,Emanuella Vasconcelos,792.610.345-43,1962-03-17,bryandias@example.com,97 6874-0345,"Via Farias, 61",Olhos D'água,Souza dos Dourados,MG,27758-416,2024-09-02,ME
+2038,Emilly Nogueira,451.028.973-14,1960-03-07,cferreira@example.org,43 9640-1658,"Viela de Castro, 3",Jardim América,Andrade de Cardoso,AP,55690927,2026-05-31,Pessoa Física
+2039,Dr. Breno Oliveira,285.397.104-04,1993-03-09,ymoreira@example.net,+55 51 4473-9473,Campo Machado,Conjunto Paulo Vi,Borges de Rodrigues,MT,18844-225,2025-07-13,MEI
+2040,Guilherme Vieira,237.094.516-80,1986-01-04,azevedoana-luiza@example.com,87 8669-1251,"Viela Pietra Ferreira, 38",Vila São Francisco,Lopes,PE,18242253,2025-03-16,ME
+2041,Larissa Barros,439.152.078-88,1984-11-03,luigiribeiro@example.net,37 9001-0943,"Pátio de Pinto, 8",Fernão Dias,Ramos da Mata,PR,64710276,2025-06-25,ME
+2042,Luigi Pereira,258.793.140-14,1969-01-09,rcampos@example.com,+55 96 2104-6963,"Largo Oliveira, 33",Santa Margarida,Monteiro de das Neves,PR,16873395,2024-08-11,MEI
+2043,Thales Peixoto,740.693.182-40,1994-10-27,caleb60@example.net,+55 81 5841-6878,"Viela de Pimenta, 3",Cachoeirinha,Freitas Alegre,PI,23986-800,2024-08-04,Pessoa Física
+2044,Sra. Olívia Moreira,728.946.135-55,1984-12-14,ksantos@example.com,86 0551-6940,"Jardim Rafael Silveira, 8",Conjunto Novo Dom Bosco,Casa Grande de Goiás,AL,30756263,2025-05-02,ME
+2045,Olivia Sousa,023.487.619-04,1977-03-05,zoe54@example.net,88 3348-4344,"Vila Santos, 85",Maravilha,da Paz do Campo,RJ,65240-415,2026-05-13,ME
+2046,Jade Souza,738.642.509-00,1986-03-24,ryanaragao@example.net,0500 330 1657,Conjunto de Abreu,São Sebastião,Jesus,RS,73454-019,2024-12-23,ME
+2047,Dra. Ana Carolina Cavalcanti,620.935.184-06,2001-05-14,da-rosaheitor@example.com,16 7887-2874,"Loteamento Castro, 34",Alpes,Vieira da Mata,RJ,29668516,2025-11-08,Pessoa Física
+2048,Davi Miguel Mendes,530.281.946-51,1968-01-11,da-luzeloah@example.net,+55 93 0174-2684,"Vereda da Rocha, 49",Estrela,Mendes,BA,95687-833,2025-11-16,ME
+2049,Anna Liz Moura,785.046.923-29,1983-09-25,lucasduarte@example.net,75 1397-1870,"Rodovia Leão, 19",Senhor Dos Passos,Rocha de das Neves,SC,64039106,2025-03-15,MEI
+2050,Vitor Hugo Araújo,170.239.465-43,1972-03-26,ymachado@example.com,+55 38 8251-2868,"Fazenda de Abreu, 5",Piraja,Nascimento das Flores,TO,37524310,2026-02-18,MEI
+2051,Allana da Costa,318.409.562-24,1973-11-05,valentinacunha@example.org,+55 62 8439-5995,"Distrito Raquel Câmara, 54",Beira Linha,Pires,RO,87056-856,2025-05-01,ME
+2052,Marcos Vinicius Cirino,873.612.590-30,1983-02-19,hnovais@example.org,54 3435-1751,"Estrada de Aragão, 16",Buritis,Correia,SE,73540331,2026-01-03,ME
+2053,Isabelly Sampaio,936.142.578-19,1981-06-20,ana-liz45@example.net,93 7175-3556,Fazenda de Sousa,Cônego Pinheiro 1ª Seção,da Luz,PI,42353-693,2025-07-06,MEI
+2054,Maitê da Cunha,798.152.603-59,1961-03-11,mourabernardo@example.org,+55 27 0623-1203,"Núcleo Dante Pinto, 177",Ademar Maldonado,Albuquerque do Sul,PE,84086-211,2025-07-25,MEI
+2055,Gael Pinto,845.230.617-26,1983-04-15,ana-clararodrigues@example.org,+55 19 1666-8700,"Chácara Monteiro, 25",Luxemburgo,da Conceição,DF,40148-902,2026-05-16,ME
+2056,Sr. Gustavo Henrique Pastor,261.974.583-73,1989-10-13,hadassa21@example.net,41 0163-1599,"Largo Bento Porto, 87",Eymard,Novaes das Flores,PA,96194311,2025-01-18,MEI
+2057,Daniela Sousa,658.097.213-03,1994-09-04,cardosoerick@example.org,71 7888-6101,"Chácara de Peixoto, 156",Jardim Felicidade,Gomes de Minas,SC,98262244,2025-01-19,Pessoa Física
+2058,Benício Cavalcante,649.230.718-69,1992-04-30,npeixoto@example.org,82 1240-6596,"Praia Bruna Lopes, 624",Vale Do Jatoba,Mendes,MT,65479356,2025-01-27,Pessoa Física
+2059,Maria Clara Camargo,932.540.876-74,1975-12-12,davi-miguel67@example.org,22 3426-6179,"Passarela de Nascimento, 168",Vila Suzana Segunda Seção,Sampaio da Prata,RN,13529096,2026-06-13,Pessoa Física

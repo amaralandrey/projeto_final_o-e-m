@@ -2,26 +2,35 @@ import re
 import pandas as pd
 import spacy
 
-nlp = spacy.load("pt_core_news_sm")
+nlp = spacy.load("pt_core_news_sm") #[cite: 6]
 
 def analisar_texto_livre(series):
     """
-    Usa spaCy para encontrar entidades com lógica de desempate.
+    Usa spaCy para encontrar entidades com lógica percentual para evitar falsos positivos.
     """
-    amostra = series.dropna().astype(str).sample(n=min(50, len(series)), random_state=42)
+    valores_validos = series.dropna().astype(str).str.strip()
+    valores_validos = valores_validos[valores_validos != ""]
 
-    entidades_encontradas = {"PER": 0, "LOC": 0}
+    if valores_validos.empty:
+        return None
+
+    tamanho_amostra = min(50, len(valores_validos))
+    amostra = valores_validos.sample(n=tamanho_amostra, random_state=42)
+
+    entidades_encontradas = {"PER": 0, "LOC": 0} #[cite: 6]
 
     for texto in amostra:
-        doc = nlp(texto)
-        for ent in doc.ents:
-            if ent.label_ == "PER": entidades_encontradas["PER"] += 1
-            if ent.label_ == "LOC": entidades_encontradas["LOC"] += 1
+        doc = nlp(texto) #[cite: 6]
+        for ent in doc.ents: #[cite: 6]
+            if ent.label_ == "PER": entidades_encontradas["PER"] += 1 #[cite: 6]
+            if ent.label_ == "LOC": entidades_encontradas["LOC"] += 1 #[cite: 6]
+                
+    limiar_minimo = tamanho_amostra * 0.40
 
-    if entidades_encontradas["PER"] > entidades_encontradas["LOC"] and entidades_encontradas["PER"] > 5:
+    if entidades_encontradas["PER"] > entidades_encontradas["LOC"] and entidades_encontradas["PER"] >= limiar_minimo:
         return "Nome"
 
-    if entidades_encontradas["LOC"] > entidades_encontradas["PER"] and entidades_encontradas["LOC"] > 5:
+    if entidades_encontradas["LOC"] > entidades_encontradas["PER"] and entidades_encontradas["LOC"] >= limiar_minimo:
         return "Endereço"
 
     return None
@@ -36,20 +45,20 @@ RISCO_MAPEAMENTO = {
 
 def verificar_heuristica_coluna(nome_coluna):
     """
-    Inspeciona o metadado (nome da coluna) para identificar 
-    dados que não possuem padrões matemáticos rigorosos.
+    Inspeciona o metadado garantindo correspondência exata de palavras.
     """
-    nome_normalizado = str(nome_coluna).lower().strip()
-    
-    palavras_chave_nome = ['nome', 'razao social', 'cliente', 'titular', 'favorecido', 'contato']
-    palavras_chave_endereco = ['endereco', 'rua', 'logradouro', 'cep', 'bairro', 'cidade', 'estado', 'uf']
-    
-    if any(palavra in nome_normalizado for palavra in palavras_chave_nome):
+    nome_normalizado = str(nome_coluna).lower().strip().replace('_', ' ')
+
+    palavras_chave_nome = ['nome', 'razao social', 'cliente', 'titular', 'favorecido', 'contato'] #[cite: 6]
+    palavras_chave_endereco = ['endereco', 'rua', 'logradouro', 'cep', 'bairro', 'cidade', 'estado', 'uf'] #[cite: 6]
+
+    # 3. Usa Regex para garantir que a palavra não é apenas parte de outra palavra (\b)
+    if any(re.search(rf'\b{palavra}\b', nome_normalizado) for palavra in palavras_chave_nome):
         return "Nome"
-    
-    if any(palavra in nome_normalizado for palavra in palavras_chave_endereco):
+
+    if any(re.search(rf'\b{palavra}\b', nome_normalizado) for palavra in palavras_chave_endereco):
         return "Endereço"
-        
+
     return None
 
 def extrair_padroes_coluna(series):
@@ -82,6 +91,25 @@ def extrair_padroes_coluna(series):
         
     return None
 
+def verificar_exclusao_coluna(nome_coluna):
+    """
+    Bloqueia colunas que claramente se referem a dados corporativos, 
+    de produtos ou infraestrutura, evitando falsos positivos.
+    """
+    nome_normalizado = str(nome_coluna).lower().strip().replace('_', ' ')
+    
+    palavras_exclusao = [
+        'produto', 'deposito', 'depósito', 'filial', 'empresa', 'cnpj',
+        'loja', 'departamento', 'estoque', 'equipamento', 'marca', 
+        'fabricante', 'fornecedor', 'servico', 'serviço', 'cargo', 
+        'setor', 'maquina', 'veiculo', 'placa', 'patrimonio'
+    ]
+    
+    if any(re.search(rf'\b{palavra}\b', nome_normalizado) for palavra in palavras_exclusao):
+        return True
+        
+    return False
+    
 def analisar_dataframe(df):
     inventario = []
 

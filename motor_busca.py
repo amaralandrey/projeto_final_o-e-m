@@ -39,7 +39,13 @@ def analisar_texto_livre(series):
         return "Endereço"
 
     return None
-
+RISCO_MAPEAMENTO = {
+    "CPF": "Médio",
+    "E-mail": "Médio",
+    "Telefone": "Médio",
+    "Nome": "Baixo",
+    "Endereço": "Alto"
+}
 
 def verificar_heuristica_coluna(nome_coluna):
     """

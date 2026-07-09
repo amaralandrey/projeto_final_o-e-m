@@ -39,6 +39,7 @@ def analisar_texto_livre(series):
         return "Endereço"
 
     return None
+
 RISCO_MAPEAMENTO = {
     "CPF": "Médio",
     "E-mail": "Médio",

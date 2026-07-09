@@ -3,7 +3,7 @@ import spacy
 import pandas as pd
 
 st.set_page_config(page_title="Hello World SpaCy", layout="centered")
-st.title(" Hello World: SpaCy + Streamlit")
+st.title("Hello World: SpaCy + Streamlit")
 
 @st.cache_resource
 def carregar_modelo():

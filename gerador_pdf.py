@@ -4,7 +4,6 @@ import pandas as pd
 
 class RelatorioLGPD(FPDF):
     def header(self):
-        # Título do Relatório
         self.set_font("Arial", "B", 16)
         self.set_text_color(26, 54, 93) 
         self.cell(0, 10, "Relatório de Adequação à LGPD (MVP)", ln=True, align="C")
@@ -14,7 +13,6 @@ class RelatorioLGPD(FPDF):
         self.ln(10)
         
     def footer(self):
-        # Rodapé com numeração de páginas
         self.set_y(-15)
         self.set_font("Arial", "I", 8)
         self.set_text_color(113, 128, 150) 
@@ -49,35 +47,32 @@ def gerar_pdf_bytes(df_resultados, total_linhas):
     pdf.cell(90, 8, "Tipo de Dado Pessoal", border=1, fill=True)
     pdf.cell(40, 8, "Nível de Risco", border=1, fill=True, ln=True)
     
-    # Linhas da Tabela populadas via DataFrame Pandas
     pdf.set_font("Arial", "", 10)
     
     if not df_resultados.empty:
-        # Itera sobre as linhas do DataFrame
         for index, row in df_resultados.iterrows():
             pdf.cell(60, 8, str(row['Coluna']), border=1)
             pdf.cell(90, 8, str(row['Tipo de Dado Pessoal']), border=1)
             
-            # Formatação opcional: Destacar o risco
             risco = str(row['Nível de Risco'])
             if risco == "Alto":
-                pdf.set_text_color(229, 62, 62) # Vermelho
+                pdf.set_text_color(229, 62, 62) 
             elif risco == "Médio":
-                pdf.set_text_color(221, 107, 32) # Laranja
+                pdf.set_text_color(221, 107, 32) 
             else:
-                pdf.set_text_color(56, 161, 105) # Verde
+                pdf.set_text_color(56, 161, 105) 
                 
             pdf.cell(40, 8, risco, border=1, ln=True)
-            pdf.set_text_color(45, 55, 72) # Retorna para a cor padrão do texto
+            pdf.set_text_color(45, 55, 72)
     else:
         pdf.cell(190, 8, "Nenhum dado pessoal evidente detectado neste arquivo.", border=1, ln=True)
         
     pdf.ln(5)
     
-    # Seção 3: Recomendações de Segurança
+    # Recomendações de Segurança
     pdf.set_font("Arial", "B", 12)
     pdf.set_text_color(43, 108, 176) 
-    pdf.cell(0, 10, "3. Recomendações Iniciais para a PME", ln=True)
+    pdf.cell(0, 10, "3. Recomendações Iniciais", ln=True)
     pdf.ln(2)
     
     pdf.set_font("Arial", "", 10)

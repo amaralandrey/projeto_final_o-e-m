@@ -64,21 +64,12 @@ if df is not None:
         st.success(f"Arquivo '{nome_arquivo}' carregado com sucesso!")
         st.info(f"O arquivo possui {df.shape[0]} linhas e {df.shape[1]} colunas.")
 
-        st.markdown("#### Visualização Rápida")
-        df_metadados = pd.DataFrame({
-            "Nome da Coluna": df.columns,
-            "Tipo Original": df.dtypes.astype(str)
-        })
-        st.dataframe(df_metadados, hide_index=True, use_container_width=True)
-
-        st.markdown("---")
-
         if st.button("Analisar e Gerar Relatório PDF"):
             with st.spinner("Analisando padrões e calculando riscos..."):
 
                 df_resultados = analisar_dataframe(df)
 
-                st.markdown("### 📊 Resultado da Análise de Risco")
+                st.markdown("### Resultado da Análise de Risco")
                 if not df_resultados.empty:
                     st.dataframe(df_resultados, hide_index=True, use_container_width=True)
                 else:
@@ -91,7 +82,7 @@ if df is not None:
                 st.download_button(
                     label="Baixar Relatório em PDF",
                     data=bytes(pdf_bytes),
-                    file_name=f"Relatorio_LGPD_{nome_arquivo.split('.')[0]}.pdf",
+                    file_name=f"Relatorio_{nome_arquivo.split('.')[0]}.pdf",
                     mime="application/pdf"
                 )
 

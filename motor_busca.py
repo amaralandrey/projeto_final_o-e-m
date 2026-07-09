@@ -2,54 +2,61 @@ import re
 import pandas as pd
 import spacy
 
-nlp = spacy.load("pt_core_news_sm")
+nlp = spacy.load("pt_core_news_sm") #[cite: 6]
 
 def analisar_texto_livre(series):
     """
-    Usa spaCy para encontrar entidades com lógica de desempate.
+    Usa spaCy para encontrar entidades com lógica percentual para evitar falsos positivos.
     """
-    amostra = series.dropna().astype(str).sample(n=min(50, len(series)), random_state=42)
+    # 1. Limpeza rigorosa: remove nulos, espaços em branco e strings vazias
+    valores_validos = series.dropna().astype(str).str.strip()
+    valores_validos = valores_validos[valores_validos != ""]
 
-    entidades_encontradas = {"PER": 0, "LOC": 0}
+    if valores_validos.empty:
+        return None
+
+    # Amostragem para performance[cite: 6]
+    tamanho_amostra = min(50, len(valores_validos))
+    amostra = valores_validos.sample(n=tamanho_amostra, random_state=42)
+
+    entidades_encontradas = {"PER": 0, "LOC": 0} #[cite: 6]
 
     for texto in amostra:
-        doc = nlp(texto)
-        for ent in doc.ents:
-            if ent.label_ == "PER": entidades_encontradas["PER"] += 1
-            if ent.label_ == "LOC": entidades_encontradas["LOC"] += 1
+        doc = nlp(texto) #[cite: 6]
+        for ent in doc.ents: #[cite: 6]
+            if ent.label_ == "PER": entidades_encontradas["PER"] += 1 #[cite: 6]
+            if ent.label_ == "LOC": entidades_encontradas["LOC"] += 1 #[cite: 6]
 
-    if entidades_encontradas["PER"] > entidades_encontradas["LOC"] and entidades_encontradas["PER"] > 5:
+    # 2. Mudança de Limiar: Exige que pelo menos 40% da amostra seja identificada como a entidade
+    limiar_minimo = tamanho_amostra * 0.40
+
+    # Classifica como Nome se houver mais Pessoas do que Locais e atingir o percentual mínimo
+    if entidades_encontradas["PER"] > entidades_encontradas["LOC"] and entidades_encontradas["PER"] >= limiar_minimo:
         return "Nome"
 
-    if entidades_encontradas["LOC"] > entidades_encontradas["PER"] and entidades_encontradas["LOC"] > 5:
+    # Classifica como Endereço se houver mais Locais que Pessoas e atingir o percentual mínimo
+    if entidades_encontradas["LOC"] > entidades_encontradas["PER"] and entidades_encontradas["LOC"] >= limiar_minimo:
         return "Endereço"
 
     return None
 
-RISCO_MAPEAMENTO = {
-    "CPF": "Médio",
-    "E-mail": "Médio",
-    "Telefone": "Médio",
-    "Nome": "Baixo",
-    "Endereço": "Alto"
-}
 
 def verificar_heuristica_coluna(nome_coluna):
     """
-    Inspeciona o metadado (nome da coluna) para identificar 
-    dados que não possuem padrões matemáticos rigorosos.
+    Inspeciona o metadado garantindo correspondência exata de palavras.
     """
-    nome_normalizado = str(nome_coluna).lower().strip()
-    
-    palavras_chave_nome = ['nome', 'razao social', 'cliente', 'titular', 'favorecido', 'contato']
-    palavras_chave_endereco = ['endereco', 'rua', 'logradouro', 'cep', 'bairro', 'cidade', 'estado', 'uf']
-    
-    if any(palavra in nome_normalizado for palavra in palavras_chave_nome):
+    nome_normalizado = str(nome_coluna).lower().strip().replace('_', ' ')
+
+    palavras_chave_nome = ['nome', 'razao social', 'cliente', 'titular', 'favorecido', 'contato'] #[cite: 6]
+    palavras_chave_endereco = ['endereco', 'rua', 'logradouro', 'cep', 'bairro', 'cidade', 'estado', 'uf'] #[cite: 6]
+
+    # 3. Usa Regex para garantir que a palavra não é apenas parte de outra palavra (\b)
+    if any(re.search(rf'\b{palavra}\b', nome_normalizado) for palavra in palavras_chave_nome):
         return "Nome"
-    
-    if any(palavra in nome_normalizado for palavra in palavras_chave_endereco):
+
+    if any(re.search(rf'\b{palavra}\b', nome_normalizado) for palavra in palavras_chave_endereco):
         return "Endereço"
-        
+
     return None
 
 def extrair_padroes_coluna(series):

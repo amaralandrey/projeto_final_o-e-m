@@ -1,0 +1,31 @@
+﻿id_produto,nome_produto,categoria,quantidade_estoque,preco_unitario,fornecedor_codigo,data_ultima_entrada,localizacao_deposito
+1000,Mouse sem fio,Eletrônicos,327,93.51,FORN-194,2026-05-04,Corredor 5 - Prateleira B
+1001,Teclado mecânico,Eletrônicos,114,115.93,FORN-113,2026-01-13,Corredor 9 - Prateleira A
+1002,"Monitor 24""",Eletrônicos,302,340.43,FORN-103,2026-02-27,Corredor 2 - Prateleira B
+1003,Webcam HD,Eletrônicos,119,406.76,FORN-103,2026-02-18,Corredor 9 - Prateleira B
+1004,Fone de ouvido,Eletrônicos,366,521.66,FORN-169,2026-05-21,Corredor 7 - Prateleira B
+1005,Caderno universitário,Papelaria,229,473.47,FORN-100,2026-05-10,Corredor 3 - Prateleira D
+1006,Caneta esferográfica,Papelaria,174,225.91,FORN-127,2026-06-18,Corredor 6 - Prateleira A
+1007,Grampeador,Papelaria,47,307.04,FORN-145,2026-01-24,Corredor 6 - Prateleira E
+1008,Pasta arquivo,Papelaria,135,646.67,FORN-193,2026-03-25,Corredor 8 - Prateleira E
+1009,Post-it,Papelaria,63,778.63,FORN-148,2026-01-14,Corredor 2 - Prateleira E
+1010,Detergente,Limpeza,150,664.38,FORN-179,2026-02-17,Corredor 6 - Prateleira E
+1011,Álcool 70%,Limpeza,98,565.13,FORN-105,2026-04-09,Corredor 4 - Prateleira C
+1012,Papel toalha,Limpeza,40,684.98,FORN-112,2026-01-13,Corredor 7 - Prateleira C
+1013,Desinfetante,Limpeza,232,510.37,FORN-146,2026-02-13,Corredor 3 - Prateleira C
+1014,Sabão em pó,Limpeza,181,171.56,FORN-134,2026-05-05,Corredor 2 - Prateleira E
+1015,Cadeira de escritório,Móveis,325,141.06,FORN-193,2026-04-17,Corredor 4 - Prateleira B
+1016,Mesa em L,Móveis,236,306.67,FORN-181,2026-02-17,Corredor 9 - Prateleira B
+1017,Armário de aço,Móveis,350,262.8,FORN-198,2026-04-25,Corredor 1 - Prateleira B
+1018,Estante,Móveis,420,30.52,FORN-140,2026-06-03,Corredor 7 - Prateleira C
+1019,Gaveteiro,Móveis,33,172.73,FORN-172,2026-01-10,Corredor 6 - Prateleira B
+1020,HD externo 1TB,Informática,335,401.89,FORN-182,2026-06-03,Corredor 8 - Prateleira B
+1021,Pendrive 32GB,Informática,135,116.01,FORN-195,2026-05-14,Corredor 9 - Prateleira E
+1022,Cabo HDMI,Informática,134,598.88,FORN-154,2026-03-11,Corredor 10 - Prateleira D
+1023,Roteador Wi-Fi,Informática,185,179.36,FORN-117,2026-02-05,Corredor 9 - Prateleira D
+1024,SSD 480GB,Informática,46,605.85,FORN-114,2026-06-30,Corredor 3 - Prateleira B
+1025,Café em pó,Alimentos,405,545.98,FORN-176,2026-03-10,Corredor 2 - Prateleira D
+1026,Açúcar refinado,Alimentos,195,478.73,FORN-159,2026-01-25,Corredor 9 - Prateleira C
+1027,Água mineral,Alimentos,497,444.81,FORN-101,2026-01-26,Corredor 2 - Prateleira E
+1028,Biscoito,Alimentos,384,217.13,FORN-182,2026-06-10,Corredor 6 - Prateleira A
+1029,Chá verde,Alimentos,150,350.64,FORN-158,2026-04-27,Corredor 1 - Prateleira C

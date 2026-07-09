@@ -95,6 +95,27 @@ def extrair_padroes_coluna(series):
         
     return None
 
+def verificar_exclusao_coluna(nome_coluna):
+    """
+    Bloqueia colunas que claramente se referem a dados corporativos, 
+    de produtos ou infraestrutura, evitando falsos positivos.
+    """
+    nome_normalizado = str(nome_coluna).lower().strip().replace('_', ' ')
+    
+    # Lista de termos que descaracterizam dados pessoais
+    palavras_exclusao = [
+        'produto', 'deposito', 'depósito', 'filial', 'empresa', 'cnpj',
+        'loja', 'departamento', 'estoque', 'equipamento', 'marca', 
+        'fabricante', 'fornecedor', 'servico', 'serviço', 'cargo', 
+        'setor', 'maquina', 'veiculo', 'placa', 'patrimonio'
+    ]
+    
+    # Se qualquer palavra de exclusão estiver no nome da coluna, retorna True
+    if any(re.search(rf'\b{palavra}\b', nome_normalizado) for palavra in palavras_exclusao):
+        return True
+        
+    return False
+    
 def analisar_dataframe(df):
     inventario = []
 

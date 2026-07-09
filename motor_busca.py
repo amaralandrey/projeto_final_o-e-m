@@ -8,14 +8,12 @@ def analisar_texto_livre(series):
     """
     Usa spaCy para encontrar entidades com lógica percentual para evitar falsos positivos.
     """
-    # 1. Limpeza rigorosa: remove nulos, espaços em branco e strings vazias
     valores_validos = series.dropna().astype(str).str.strip()
     valores_validos = valores_validos[valores_validos != ""]
 
     if valores_validos.empty:
         return None
 
-    # Amostragem para performance[cite: 6]
     tamanho_amostra = min(50, len(valores_validos))
     amostra = valores_validos.sample(n=tamanho_amostra, random_state=42)
 
@@ -26,15 +24,12 @@ def analisar_texto_livre(series):
         for ent in doc.ents: #[cite: 6]
             if ent.label_ == "PER": entidades_encontradas["PER"] += 1 #[cite: 6]
             if ent.label_ == "LOC": entidades_encontradas["LOC"] += 1 #[cite: 6]
-
-    # 2. Mudança de Limiar: Exige que pelo menos 40% da amostra seja identificada como a entidade
+                
     limiar_minimo = tamanho_amostra * 0.40
 
-    # Classifica como Nome se houver mais Pessoas do que Locais e atingir o percentual mínimo
     if entidades_encontradas["PER"] > entidades_encontradas["LOC"] and entidades_encontradas["PER"] >= limiar_minimo:
         return "Nome"
 
-    # Classifica como Endereço se houver mais Locais que Pessoas e atingir o percentual mínimo
     if entidades_encontradas["LOC"] > entidades_encontradas["PER"] and entidades_encontradas["LOC"] >= limiar_minimo:
         return "Endereço"
 
@@ -103,7 +98,6 @@ def verificar_exclusao_coluna(nome_coluna):
     """
     nome_normalizado = str(nome_coluna).lower().strip().replace('_', ' ')
     
-    # Lista de termos que descaracterizam dados pessoais
     palavras_exclusao = [
         'produto', 'deposito', 'depósito', 'filial', 'empresa', 'cnpj',
         'loja', 'departamento', 'estoque', 'equipamento', 'marca', 
@@ -111,7 +105,6 @@ def verificar_exclusao_coluna(nome_coluna):
         'setor', 'maquina', 'veiculo', 'placa', 'patrimonio'
     ]
     
-    # Se qualquer palavra de exclusão estiver no nome da coluna, retorna True
     if any(re.search(rf'\b{palavra}\b', nome_normalizado) for palavra in palavras_exclusao):
         return True
         

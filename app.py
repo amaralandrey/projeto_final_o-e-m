@@ -45,7 +45,7 @@ else:
                 arquivos_demo
             )
             caminho_demo = os.path.join(pasta_demo, arquivo_selecionado)
-https://github.com/amaralandrey
+
             try:
                 if arquivo_selecionado.endswith('.csv'):
                     df = pd.read_csv(caminho_demo)

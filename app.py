@@ -45,7 +45,7 @@ else:
                 arquivos_demo
             )
             caminho_demo = os.path.join(pasta_demo, arquivo_selecionado)
-
+https://github.com/amaralandrey
             try:
                 if arquivo_selecionado.endswith('.csv'):
                     df = pd.read_csv(caminho_demo)
@@ -78,7 +78,7 @@ if df is not None:
                 total_linhas = df.shape[0]
                 pdf_bytes = gerar_pdf_bytes(df_resultados, total_linhas)
 
-                st.markdown("### 📄 Relatório de Adequação")
+                st.markdown("### Relatório de Adequação")
                 st.download_button(
                     label="Baixar Relatório em PDF",
                     data=bytes(pdf_bytes),

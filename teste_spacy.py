@@ -7,7 +7,6 @@ st.title("Hello World: SpaCy + Streamlit")
 
 @st.cache_resource
 def carregar_modelo():
-    # Carrega o modelo em português que configuramos no requirements.txt
     return spacy.load("pt_core_news_sm")
 
 st.markdown("Iniciando o carregamento do modelo de Linguagem Natural...")

@@ -25,6 +25,7 @@ Nossa proposta é uma plataforma de descoberta e inventário automatizado de dad
 
 ## Fluxo do usuário 
 - Usuário faz upload de arquivo: CSV, XLSX  
-- Sistema analisa colunas  
-- Sistema calcula risco  
-- Sistema gera relatório com recomendações
+- Sistema analisa e exibe os dados detectados  
+- Usuário interage com a interface para preencher a Base Legal e Finalidade  
+- Usuário clica em um novo botão para gerar o PDF consolidado  
+

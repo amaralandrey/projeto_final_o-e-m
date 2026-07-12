@@ -122,7 +122,6 @@ if df is not None:
                         )
                     use_container_width=True,
                     hide_index=True
-                )
             else:
                 st.success("Nenhum dado pessoal sensível foi detectado de forma evidente neste arquivo.")
 

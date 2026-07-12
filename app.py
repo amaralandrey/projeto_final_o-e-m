@@ -123,6 +123,7 @@ if df is not None:
                     },
                     use_container_width=True,
                     hide_index=True
+                )
             else:
                 st.success("Nenhum dado pessoal sensível foi detectado de forma evidente neste arquivo.")
 
@@ -139,4 +140,3 @@ if df is not None:
 
     except Exception as e:
         st.error(f"Erro ao processar o arquivo: {e}")
-

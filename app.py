@@ -87,7 +87,7 @@ if df is not None:
                 if "Base Legal" not in df_resultados.columns:
                     df_resultados["Base Legal"] = "Não classificado"
                 if "Finalidade" not in df_resultados.columns:
-                    df_resultados["Finalidade"] = ""
+                    df_resultados["Finalidade"] = "Não classificado"
 
                 df_para_relatorio = st.data_editor(
                     df_resultados,
@@ -105,12 +105,21 @@ if df is not None:
                             ],
                             required=True
                         ),
-                        "Finalidade": st.column_config.TextColumn(
+                        "Finalidade": st.column_config.SelectboxColumn(
                             "Finalidade",
-                            help="Descreva brevemente o motivo da coleta (Máx. 35 caracteres recomendados)",
-                            default=""
+                            help="Selecione a finalidade para o tratamento deste dado",
+                            options=[
+                                "Não classificado",
+                                "Marketing e Comunicação",
+                                "Gestão de RH e Recrutamento",
+                                "Faturamento e Cobrança",
+                                "Entrega de Produto/Serviço",
+                                "Atendimento ao Cliente (SAC)",
+                                "Prevenção a Fraudes",
+                                "Cumprimento Regulatório"
+                            ],
+                            required=True
                         )
-                    },
                     use_container_width=True,
                     hide_index=True
                 )
@@ -130,3 +139,4 @@ if df is not None:
 
     except Exception as e:
         st.error(f"Erro ao processar o arquivo: {e}")
+

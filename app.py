@@ -79,6 +79,8 @@ if df is not None:
 
             st.markdown("### Classificação de Tratamento (ROPA)")
 
+            df_para_relatorio = df_resultados
+
             if not df_resultados.empty:
                 st.info("Preencha a Base Legal e a Finalidade para cada dado pessoal encontrado. Essas informações constarão no relatório final.")
 
@@ -87,7 +89,7 @@ if df is not None:
                 if "Finalidade" not in df_resultados.columns:
                     df_resultados["Finalidade"] = ""
 
-                df_editado = st.data_editor(
+                df_para_relatorio = st.data_editor(
                     df_resultados,
                     column_config={
                         "Coluna": st.column_config.TextColumn("Coluna do Arquivo", disabled=True),
@@ -112,20 +114,19 @@ if df is not None:
                     use_container_width=True,
                     hide_index=True
                 )
-
-                total_linhas = df.shape[0]
-                pdf_bytes = gerar_pdf_bytes(df_editado, total_linhas)
-
-                st.markdown("### 📄 Relatório de Adequação")
-                st.download_button(
-                    label="Baixar Relatório em PDF (ROPA)",
-                    data=bytes(pdf_bytes),
-                    file_name=f"Relatorio_{nome_arquivo.split('.')[0]}.pdf",
-                    mime="application/pdf"
-                )
             else:
                 st.success("Nenhum dado pessoal sensível foi detectado de forma evidente neste arquivo.")
 
+            total_linhas = df.shape[0]
+            pdf_bytes = gerar_pdf_bytes(df_para_relatorio, total_linhas)
+
+            st.markdown("### Relatório de Adequação")
+            st.download_button(
+                label="Baixar Relatório em PDF (ROPA)",
+                data=bytes(pdf_bytes),
+                file_name=f"Relatorio_{nome_arquivo.split('.')[0]}.pdf",
+                mime="application/pdf"
+            )
+
     except Exception as e:
         st.error(f"Erro ao processar o arquivo: {e}")
-
